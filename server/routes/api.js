@@ -7,7 +7,7 @@ const imagesMetadataCSVFile = path.resolve(`./public/files/images_metadata.csv`)
 
 router.get("/images/:name", (req, res) => {
   const name = req.params.name
-  res.sendFile(path.resolve(`./public/files/image_files/${name}.jpg`) );
+  res.sendFile(path.resolve(`./public/files/image_files/${name}.jpg`));
 });
 
 router.post('/get-images', async (req, res) => {
@@ -21,7 +21,7 @@ router.post('/get-images', async (req, res) => {
     console.log(error)
   }
 
-  imagesArray = imagesArray.filter( element => sensors.includes(element.Sensor))
+  imagesArray = imagesArray.filter(element => sensors.includes(element.Sensor))
   imagesArray.forEach(obj => obj.ImgURL = `/images/${obj.Name}`);
   response = { response: imagesArray }
   res.json(response)

@@ -25,10 +25,10 @@ app.use(express.static(path.join(__dirname, 'node_modules'))) //you might not ne
 // Set our api routes
 app.use('/', api)
 
-// Catch all other routes and return the index file
-// app.get('*', (req, res) => {
-//     res.sendFile(path.join(__dirname, 'main/index.html'))
-// })
+//Catch all other routes and return the index file
+app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/index.html'))
+})
 
 // Get port and store in Express
 const port = process.env.PORT || '3000'
