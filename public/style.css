@@ -1,0 +1,13 @@
+#myCanvas {
+    border: 1px solid rgb(173, 160, 160);
+ }
+
+.container {
+    margin: auto;
+    width: 1000px;
+}
+
+.display-settings {
+    padding: 10px;
+    text-align: center;
+}
