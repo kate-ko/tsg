@@ -19,8 +19,7 @@ router.get('/get-images', async (req, res) => {
     console.log(error)
   }
   imagesArray.forEach(obj => obj.ImgURL = `/images/${obj.Name}`);
-  response = { response: imagesArray }
-  res.json(response)
+  res.json({imagesArray})
 })
 
 module.exports = router

@@ -4,7 +4,7 @@ class AppClass {
   }
 
   async init() {
-    this.imgArray = (await this.getDataFromServer()).response;
+    this.imgArray = (await this.getDataFromServer()).imagesArray;
   }
 
   renderImages() {
