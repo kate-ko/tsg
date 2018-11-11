@@ -10,19 +10,14 @@ router.get("/images/:name", (req, res) => {
   res.sendFile(path.resolve(`./public/files/image_files/${name}.jpg`));
 });
 
-// get images and filter them according to passed sensor
-router.post('/get-images', async (req, res) => {
-  let key = Object.keys(req.body)[0]
-  let sensors = req.body[key]
+// get all the images
+router.get('/get-images', async (req, res) => {
   let imagesArray = []
-
   try {
     imagesArray = await csv().fromFile(imagesMetadataCSVFile);
   } catch (error) {
     console.log(error)
   }
-
-  imagesArray = imagesArray.filter(element => sensors.includes(element.Sensor))
   imagesArray.forEach(obj => obj.ImgURL = `/images/${obj.Name}`);
   response = { response: imagesArray }
   res.json(response)

@@ -1,13 +1,15 @@
 class AppClass {
-  clearCanvas() {
-    let c = $('#myCanvas')[0];
-    let ctx = c.getContext("2d");
-    ctx.clearRect(0, 0, c.width, c.height);
+  constructor() {
+    this.imgArray = []; // all images
   }
 
-  async renderImages() {
+  async init() {
+    this.imgArray = (await this.getDataFromServer()).response;
+  }
+
+  renderImages() {
     let checkedSensors = this.getCheckedSensors();
-    let imgArray = (await this.getDataFromServer(checkedSensors)).response;
+    let imgArray = this.imgArray.filter(element => checkedSensors.includes(element.Sensor))
     imgArray.forEach(element => this.drawImage(element));
   }
 
@@ -17,14 +19,11 @@ class AppClass {
     }).get();
   }
 
-  async getDataFromServer(checkedSensors) {
-    let postData = { sensors: checkedSensors };
-    let result;
+  async getDataFromServer() {
     try {
-      result = await $.ajax({
-        method: "POST",
+      let result = await $.ajax({
+        method: "GET",
         url: 'get-images',
-        data: postData,
         dataType: "json"
       })
       return result;
@@ -44,6 +43,12 @@ class AppClass {
     imageObj.src = ImgURL;
   }
 
+  clearCanvas() {
+    let c = $('#myCanvas')[0];
+    let ctx = c.getContext("2d");
+    ctx.clearRect(0, 0, c.width, c.height);
+  }
+
   changeBackgroundColor() {
     let color = $('#change-color').val();
     $("#myCanvas").css("background-color", color);
@@ -51,6 +56,7 @@ class AppClass {
 }
 
 let app = new AppClass();
+app.init();
 
 //--------EVENTS
 $(".choose-sensor").change(function () {
