@@ -10,6 +10,7 @@ router.get("/images/:name", (req, res) => {
   res.sendFile(path.resolve(`./public/files/image_files/${name}.jpg`));
 });
 
+// get images and filter them according to passed sensor
 router.post('/get-images', async (req, res) => {
   let key = Object.keys(req.body)[0]
   let sensors = req.body[key]
